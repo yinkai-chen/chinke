@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赵彧生日快乐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义样式
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        birthday: {
+                            pink: '#FF69B4',
+                            yellow: '#FFD700',
+                            blue: '#1E90FF',
+                            purple: '#9370DB'
+                        }
+                    },
+                    fontFamily: {
+                        birthday: ['Comic Sans MS', 'cursive', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .animate-scale {
+                animation: scale 0.5s ease-in-out;
+            }
+            .animate-fade-in {
+                animation: fadeIn 1s ease-in-out;
+            }
+            .animate-confetti {
+                animation: confetti 5s ease-in-out infinite;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes scale {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes confetti {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-birthday-purple/20 to-birthday-pink/20 overflow-hidden">
+    <!-- 第一个界面：点我有惊喜 -->
+    <div id="page1" class="h-screen flex flex-col items-center justify-center transition-all duration-1000">
+        <div class="relative">
+            <button id="surpriseBtn" class="bg-birthday-pink hover:bg-birthday-pink/80 text-white text-4xl md:text-6xl font-bold py-8 px-16 rounded-full shadow-2xl hover:shadow-birthday-yellow/50 transition-all transform hover:scale-110 active:scale-95 animate-float">
+                点我有惊喜 <i class="fa fa-gift ml-4"></i>
+            </button>
+            
+            <!-- 装饰元素 -->
+            <div class="absolute -top-10 -left-10 text-birthday-yellow text-5xl animate-float" style="animation-delay: 0.5s;">🎉</div>
+            <div class="absolute -bottom-8 -right-8 text-birthday-blue text-5xl animate-float" style="animation-delay: 1s;">🎊</div>
+        </div>
+    </div>
+
+    <!-- 第二个界面：生日快乐满屏 -->
+    <div id="page2" class="h-screen flex flex-col items-center justify-center bg-gradient-to-r from-birthday-pink to-birthday-purple hidden">
+        <div class="w-full h-full absolute overflow-hidden">
+            <!-- 动态文字背景 -->
+            <div class="birthday-text-container w-full h-full grid grid-cols-4 grid-rows-6 gap-2">
+                <!-- 动态生成的生日快乐文字 -->
+            </div>
+            
+            <!-- 彩带动画 -->
+            <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+                <div class="absolute top-1/4 left-0 w-full h-1 bg-birthday-yellow transform -rotate-12"></div>
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-birthday-blue transform rotate-6"></div>
+                <div class="absolute bottom-1/4 left-0 w-full h-1 bg-birthday-pink transform rotate-18"></div>
+            </div>
+            
+            <!-- 礼花效果 -->
+            <div class="confetti-container absolute top-0 left-0 w-full h-full pointer-events-none"></div>
+        </div>
+        
+        <!-- 主标题 -->
+        <div class="relative z-10 text-center">
+            <h1 class="text-[clamp(2rem,8vw,6rem)] font-bold text-white text-shadow mb-8 animate-scale">
+                赵彧生日快乐！
+            </h1>
+            <p class="text-[clamp(1rem,3vw,2rem)] text-white/90 font-semibold animate-fade-in" style="animation-delay: 0.5s;">
+                祝你永远18岁 <i class="fa fa-heart text-birthday-pink animate-pulse"></i>
+            </p>
+        </div>
+        
+        <!-- 倒计时提示 -->
+        <div class="absolute bottom-8 text-white text-xl font-medium z-10 animate-fade-in" style="animation-delay: 1s;">
+            <span id="countdown">10</span> 秒后自动跳转...
+        </div>
+    </div>
+
+    <!-- 第三个界面：祝福文字 -->
+    <div id="page3" class="h-screen flex items-center justify-center bg-white/90 p-4 md:p-8 hidden">
+        <div class="max-w-3xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-birthday-pink/20 animate-fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl md:text-5xl font-bold text-birthday-purple mb-4">
+                    致最好的赵大小姐 <i class="fa fa-star text-birthday-yellow"></i>
+                </h2>
+                <div class="w-24 h-1 bg-birthday-pink mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="text-lg md:text-xl text-gray-700 leading-relaxed space-y-4 font-birthday">
+                <p>北有彧，南有凯，但同属京，还记得去年答应过你不会再送你没有价值的红包，而正常的礼物你也不中意，所以我决定回盐城后在送出这份20之礼，咱们一起去拍一组照片吧，我觉得这是最有价值且不奢华的礼物了。</p>
+                
+                <p>感谢高中三年的相遇，我觉得未来也一定会有更多的三年，虽然我们老斗嘴，你也反击，但是这何尝不是一种乐子，虽然我有时候对你也不是真心，可能是一种敷衍，但作为好朋友希望赵大小姐依旧美貌动人！</p>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <div class="inline-block text-6xl animate-float">🎂</div>
+                <p class="mt-4 text-birthday-purple font-bold text-xl">
+                    Happy Birthday To You!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 元素获取
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        const surpriseBtn = document.getElementById('surpriseBtn');
+        const countdown = document.getElementById('countdown');
+        
+        // 生日歌音频（使用公开的生日快乐歌）
+        const birthdaySong = new Audio('https://actions.google.com/sounds/v1/holiday/happy_birthday.ogg');
+        birthdaySong.loop = true; // 循环播放
+        
+        // 生成满屏的生日快乐文字
+        function generateBirthdayText() {
+            const container = document.querySelector('.birthday-text-container');
+            const texts = ['赵彧生日快乐！', '🎂', '🎉', 'Happy Birthday!', '🎊', '20岁快乐！'];
+            
+            // 创建24个格子的文字
+            for (let i = 0; i < 24; i++) {
+                const textElement = document.createElement('div');
+                const randomText = texts[Math.floor(Math.random() * texts.length)];
+                const fontSize = Math.floor(Math.random() * 10) + 12;
+                const rotate = Math.floor(Math.random() * 30) - 15;
+                
+                textElement.className = 'flex items-center justify-center text-white/80 animate-float';
+                textElement.style.animationDelay = `${Math.random() * 3}s`;
+                textElement.style.fontSize = `${fontSize}px`;
+                textElement.style.transform = `rotate(${rotate}deg)`;
+                textElement.textContent = randomText;
+                
+                container.appendChild(textElement);
+            }
+        }
+        
+        // 生成礼花效果
+        function createConfetti() {
+            const container = document.querySelector('.confetti-container');
+            const colors = ['#FF69B4', '#FFD700', '#1E90FF', '#9370DB', '#FFFFFF'];
+            
+            // 创建50个礼花元素
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                const size = Math.floor(Math.random() * 10) + 5;
+                
+                confetti.className = 'absolute animate-confetti';
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 5}s`;
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                container.appendChild(confetti);
+            }
+        }
+        
+        // 倒计时功能
+        function startCountdown() {
+            let seconds = 10;
+            
+            const timer = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    showPage3();
+                }
+            }, 1000);
+        }
+        
+        // 显示第二个页面
+        function showPage2() {
+            page1.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+                
+                // 生成装饰元素
+                generateBirthdayText();
+                createConfetti();
+                
+                // 播放生日歌
+                birthdaySong.play().catch(e => {
+                    console.log('音频播放需要用户交互:', e);
+                    // 如果自动播放失败，提示用户点击播放
+                    const playPrompt = document.createElement('div');
+                    playPrompt.className = 'absolute bottom-4 text-white bg-black/50 py-2 px-4 rounded-full text-sm';
+                    playPrompt.textContent = '点击页面播放生日歌';
+                    page2.appendChild(playPrompt);
+                    
+                    page2.addEventListener('click', () => {
+                        birthdaySong.play();
+                        playPrompt.remove();
+                    }, { once: true });
+                });
+                
+                // 开始倒计时
+                startCountdown();
+            }, 1000);
+        }
+        
+        // 显示第三个页面
+        function showPage3() {
+            // 停止生日歌
+            birthdaySong.pause();
+            
+            page2.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                page2.classList.add('hidden');
+                page3.classList.remove('hidden');
+            }, 1000);
+        }
+        
+        // 绑定按钮点击事件
+        surpriseBtn.addEventListener('click', showPage2);
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 添加页面加载动画
+            page1.classList.add('animate-fade-in');
+        });
+    </script>
+</body>
+</html>
